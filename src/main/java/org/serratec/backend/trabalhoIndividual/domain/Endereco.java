@@ -1,23 +1,15 @@
 package org.serratec.backend.trabalhoIndividual.domain;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-@Entity
+@Embeddable
 @Table(name = "enderecos")
 public class Endereco {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotNull(message = "A rua é obrigatória")
     @NotBlank(message = "A rua não pode estar vazia")
@@ -39,24 +31,18 @@ public class Endereco {
 
     @NotNull(message = "O CEP é obrigatório")
     @NotBlank(message = "O CEP não pode estar vazio")
-    @Pattern(regexp = "\\d{5}-?\\d{3}", message = "CEP deve estar no formato 12345-678 ou 12345678")
     @Column(nullable = false, length = 10)
     private String cep;
 
+    public Endereco() {
+    }
+    
     public Endereco(String rua, String cidade, String estado, String cep, String numero, String complemento) {
         this.rua = rua;
         this.cidade = cidade;
         this.estado = estado;
         this.cep = cep;
         }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getRua() {
         return rua;

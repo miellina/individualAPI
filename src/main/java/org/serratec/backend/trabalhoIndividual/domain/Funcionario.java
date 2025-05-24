@@ -1,14 +1,11 @@
 package org.serratec.backend.trabalhoIndividual.domain;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -30,11 +27,13 @@ public class Funcionario {
     private String nome;
 
     @Valid
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_id")
+    @NotNull(message = "O endereço é obrigatório")
+    @Embedded
     private Endereco endereco;
 
-
+    public Funcionario() {
+    }
+    
     public Funcionario(Long id, String nome, Endereco endereco) {
     	this.id = id;
         this.nome = nome;
